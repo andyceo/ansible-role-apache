@@ -1,0 +1,14 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: andyceo
+  description: Apache 2.4 for Ubuntu 14.04 with modules, virtual hosts and settings for them
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.5
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+    - web
