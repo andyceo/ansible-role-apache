@@ -29,6 +29,11 @@ apache:
       - ssl
     backend:
       - rpaf
+      # Do not really need filter and deflate modules for backend... but
+      # currently Apache module dependencies problem is unsolvable :(
+      # @todo: find a solution for disabling modules in right order
+      - filter
+      - deflate
 
 vhosts:
   'example.com':
