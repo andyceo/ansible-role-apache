@@ -62,10 +62,13 @@
     apt-cache search "libapache2-mod-" | cut -s -f 1 -d ' ' | grep libapache2 | sed 's/libapache2-mod-//g'
   register: apache_packaged_modules
 
+# There is so complicated expression in pkg section because of very agressive
+# optimization of with_items operator in apt module.
+# @see https://github.com/ansible/ansible/issues/8314
 - name: Install requried modules if they not installed yet
-  apt: pkg=libapache2-mod-{{ item }}
+  apt: pkg={{ "libapache2-mod-" ~ item.split(",")|join(",libapache2-mod-") }}
   sudo: yes
-  with_items: ((apache.modules.required | union(apache.modules[apache.profile])) | intersect(apache_packaged_modules.stdout_lines)) | list
+  with_items: ((apache.modules.required | union(apache.modules[apache.profile])) | intersect(apache_packaged_modules.stdout_lines))
 
 - name: Retrieve a list of loaded shared Apache modules
   shell:
