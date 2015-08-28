@@ -1,7 +1,9 @@
-- name: Install Apache 2
-  apt: pkg=apache2
+- name: Install Apache 2 and apachetop program
+  apt: pkg={{ item }}
   sudo: yes
-
+  with_items:
+    - apache2
+    - apachetop
 
 # Working with Apache configuration
 
